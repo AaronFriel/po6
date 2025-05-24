@@ -61,14 +61,14 @@ TEST(FdTest, OpenReadWriteClose)
     po6::io::fd fd;
     fd = open("/dev/zero", O_RDWR);
     char buf[4096];
-    fd.read(buf, 4096);
+    ASSERT_EQ(static_cast<ssize_t>(4096), fd.read(buf, 4096));
 
     for (int i = 0; i < 4096; ++i)
     {
         ASSERT_EQ(buf[i], '\0');
     }
 
-    fd.write(buf, 4096);
+    ASSERT_EQ(static_cast<ssize_t>(4096), fd.write(buf, 4096));
     fd.close();
 }
 

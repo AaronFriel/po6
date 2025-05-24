@@ -66,17 +66,17 @@ TEST(SocketTest, ClientAndServer)
     ip.pack(&sa, &salen, INADDR_ANY);
 
     // Create the server.
-    server.bind(ip);
-    server.listen(10);
+    ASSERT_TRUE(server.bind(ip));
+    ASSERT_TRUE(server.listen(10));
 
     // Create the client.
     po6::net::location loc;
     ASSERT_TRUE(server.getsockname(&loc));
-    client.connect(loc);
+    ASSERT_TRUE(client.connect(loc));
 
     // Close down the connection.
-    client.shutdown(SHUT_RDWR);
-    server.shutdown(SHUT_RDWR);
+    ASSERT_TRUE(client.shutdown(SHUT_RDWR));
+    ASSERT_TRUE(server.shutdown(SHUT_RDWR));
     client.close();
     server.close();
 }
